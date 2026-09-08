@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
-# --- Load the saved model, scaler, and column list ---
-# These 3 files must be in the same folder as this script
-rf_model = joblib.load('delivery_model.pkl')
-scaler = joblib.load('delivery_scaler.pkl')
-training_columns = joblib.load('delivery_columns.pkl')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+rf_model = joblib.load(os.path.join(BASE_DIR, 'delivery_model.pkl'))
+scaler = joblib.load(os.path.join(BASE_DIR, 'delivery_scaler.pkl'))
+training_columns = joblib.load(os.path.join(BASE_DIR, 'delivery_columns.pkl'))
 
 st.title("Delivery Outcome Predictor")
 st.write("Enter a new order's details to predict if it will be On-Time, Delayed, or Cancelled.")
@@ -66,9 +66,3 @@ if st.button("Predict Delivery Outcome"):
     st.dataframe(prob_df)
     import os
 
-# This finds the exact folder this script itself is sitting in
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-rf_model_loaded = joblib.load(os.path.join(BASE_DIR, 'delivery_model.pkl'))
-sc_model_loaded = joblib.load(os.path.join(BASE_DIR, 'delivery_scaler.pkl'))
-training_columns = joblib.load(os.path.join(BASE_DIR, 'delivery_columns.pkl'))
