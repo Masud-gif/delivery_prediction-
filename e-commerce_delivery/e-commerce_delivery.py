@@ -64,3 +64,11 @@ if st.button("Predict Delivery Outcome"):
         'Probability': probabilities
     }).sort_values('Probability', ascending=False)
     st.dataframe(prob_df)
+    import os
+
+# This finds the exact folder this script itself is sitting in
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+rf_model_loaded = joblib.load(os.path.join(BASE_DIR, 'delivery_model.pkl'))
+sc_model_loaded = joblib.load(os.path.join(BASE_DIR, 'delivery_scaler.pkl'))
+training_columns = joblib.load(os.path.join(BASE_DIR, 'delivery_columns.pkl'))
